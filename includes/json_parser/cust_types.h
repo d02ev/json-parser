@@ -5,7 +5,7 @@
 #include "json_parser/constants.h"
 
 struct Token {
-  TokenType type;
+  constants::TokenType type;
   std::string value;
   std::string data_type;
 };

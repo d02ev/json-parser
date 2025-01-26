@@ -1,17 +1,19 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-enum class TokenType {
-  OpenParenthesis,
-  CloseParenthesis,
-  OpenQuotes,
-  CloseQuotes,
-  OpenBracket,
-  CloseBracket,
-  Colon,
-  Comma,
-  KeyName,
-  KeyValue,
+namespace constants {
+  enum class TokenType {
+    OpenParenthesis,
+    CloseParenthesis,
+    OpenQuotes,
+    CloseQuotes,
+    OpenBracket,
+    CloseBracket,
+    Colon,
+    Comma,
+    KeyName,
+    KeyValue,
+  };
 };
 
 #endif //CONSTANTS_H

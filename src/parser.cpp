@@ -13,11 +13,11 @@ std::vector<Token> Parser::tokenize(const std::string &stringified_json) {
 
   for (int i = 0; i < stringified_json.length(); ++i) {
     if (stringified_json.at(i) == '{') {
-      tokens.push_back({TokenType::OpenParenthesis, "{", "nv"});
+      tokens.push_back({constants::TokenType::OpenParenthesis, "{", "nv"});
       continue;
     }
     if (stringified_json.at(i) == '"') {
-      tokens.push_back({TokenType::OpenQuotes, "\"", "nv"});
+      tokens.push_back({constants::TokenType::OpenQuotes, "\"", "nv"});
       ++i;
 
       if (i < stringified_json.length() && (stringified_json.at(i - 2) == '{' || stringified_json.at(i - 2) == ',')) {
@@ -25,17 +25,17 @@ std::vector<Token> Parser::tokenize(const std::string &stringified_json) {
           buf.push_back(stringified_json.at(i++));
         }
 
-        tokens.push_back({TokenType::KeyName, buf, "string"});
+        tokens.push_back({constants::TokenType::KeyName, buf, "string"});
         buf.clear();
-        tokens.push_back({TokenType::CloseQuotes, "\"", "nv"});
+        tokens.push_back({constants::TokenType::CloseQuotes, "\"", "nv"});
       }
     }
     if (stringified_json.at(i) == ':') {
-      tokens.push_back({TokenType::Colon, ":", "nv"});
+      tokens.push_back({constants::TokenType::Colon, ":", "nv"});
       ++i;
 
       if (stringified_json.at(i) == '"') {
-        tokens.push_back({TokenType::OpenQuotes, "\"", "nv"});
+        tokens.push_back({constants::TokenType::OpenQuotes, "\"", "nv"});
         ++i;
         while (i < stringified_json.length() && stringified_json.at(i) != '"') {
           buf.push_back(stringified_json.at(i++));
@@ -82,20 +82,20 @@ std::vector<Token> Parser::tokenize(const std::string &stringified_json) {
         data_type = "invalid";
 
       if (data_type == "string") {
-        tokens.push_back({TokenType::KeyValue, buf.substr(0, buf.size() - 1), data_type});
+        tokens.push_back({constants::TokenType::KeyValue, buf.substr(0, buf.size() - 1), data_type});
         buf.clear();
-        tokens.push_back({TokenType::CloseQuotes, "\"", "nv"});
+        tokens.push_back({constants::TokenType::CloseQuotes, "\"", "nv"});
       } else {
-        tokens.push_back({TokenType::KeyValue, buf, data_type});
+        tokens.push_back({constants::TokenType::KeyValue, buf, data_type});
         buf.clear();
       }
     }
     if (stringified_json.at(i) == ',') {
-      tokens.push_back({TokenType::Comma, ",", "nv"});
+      tokens.push_back({constants::TokenType::Comma, ",", "nv"});
       continue;
     }
     if (stringified_json.at(i) == '}') {
-      tokens.push_back({TokenType::CloseParenthesis, "}", "nv"});
+      tokens.push_back({constants::TokenType::CloseParenthesis, "}", "nv"});
     }
   }
 
